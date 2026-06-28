@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đội Ngũ — AUTOSTORE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Thêm style cho sự kiện click */
+        .member-name-clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .member-name-clickable:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .member-name-clickable:active {
+            transform: translateY(0);
+        }
+        .member-name-clickable::after {
+            content: "📋";
+            margin-left: 8px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+        .member-name-clickable:hover::after {
+            content: "👆";
+        }
+
+        @keyframes highlightMember {
+            0% { background-color: transparent; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            50% { background-color: rgba(232, 64, 10, 0.15); box-shadow: 0 15px 40px rgba(232, 64, 10, 0.25); transform: scale(1.02); }
+            100% { background-color: transparent; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: scale(1); }
+        }
+        .highlight-animation {
+            animation: highlightMember 1.8s ease;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--steel);
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .breadcrumb-container a {
+            color: var(--silver);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb-container a:hover { color: var(--ember); }
+        .breadcrumb-container span { color: var(--silver); }
+        .breadcrumb-container .current { color: var(--platinum); font-weight: 500; }
+
+        /* Members section */
+        .members-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .members-section .section-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--platinum);
+            text-align: center;
+            margin-bottom: 36px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        /* Card thành viên kiểu mới */
+        .member-card-compact {
+            background: var(--steel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 22px 22px;
+            text-align: center;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.35s ease,
+                        border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .member-card-compact:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--ember);
+            box-shadow: 0 16px 48px rgba(232, 64, 10, 0.18);
+        }
+        .member-card-compact .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--ember);
+            flex-shrink: 0;
+            margin-bottom: 14px;
+            background: var(--iron);
+        }
+        .member-card-compact .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .member-card-compact .member-name {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--platinum);
+            margin-bottom: 6px;
+            letter-spacing: 0.03em;
+        }
+        .member-card-compact .member-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .member-card-compact .member-tags .tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: var(--iron);
+            color: var(--chrome);
+            border: 1px solid var(--border);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .member-card-compact .member-tags .tag.leader {
+            background: rgba(232, 64, 10, 0.2);
+            color: var(--ember);
+            border-color: var(--ember);
+        }
+        .member-card-compact .member-tags .tag.backend {
+            background: rgba(102, 126, 234, 0.2);
+            color: #8899ff;
+            border-color: #667eea;
+        }
+        .member-card-compact .member-tags .tag.database {
+            background: rgba(76, 175, 80, 0.2);
+            color: #66bb6a;
+            border-color: #4CAF50;
+        }
+        .member-card-compact .member-tags .tag.design {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ffb74d;
+            border-color: #ff9800;
+        }
+        .member-card-compact .member-tags .tag.photo {
+            background: rgba(156, 39, 176, 0.2);
+            color: #ce93d8;
+            border-color: #9c27b0;
+        }
+        .member-card-compact .member-tags .tag.content {
+            background: rgba(0, 188, 212, 0.2);
+            color: #4dd0e1;
+            border-color: #00bcd4;
+        }
+
+        .member-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+            margin-bottom: 14px;
+        }
+        .member-contact a {
+            color: var(--silver);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+        }
+        .member-contact a:hover {
+            color: var(--ember);
+        }
+
+        .member-work {
+            width: 100%;
+            text-align: left;
+            background: var(--obsidian);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+        .member-work strong {
+            font-size: 13px;
+            color: var(--platinum);
+            display: block;
+            margin-bottom: 6px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .member-work ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .member-work ul li {
+            font-size: 13px;
+            color: var(--chrome);
+            padding: 3px 0 3px 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+        .member-work ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--ember);
+            font-weight: 700;
+        }
+
+        .member-quote {
+            font-size: 13px;
+            font-style: italic;
+            color: var(--silver);
+            padding: 8px 12px;
+            border-left: 2px solid var(--ember);
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .members-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+        @media (max-width: 600px) {
+            .members-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .member-card-compact .member-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            .member-card-compact {
+                padding: 20px 16px;
+            }
+            .breadcrumb-container {
+                padding: 0 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- Header giống trang chủ -->
+    <div id="header"> 
+        <a href="index.html" class="logo"> 
+            <img src="./ảnh/LOGO.png" alt="Logo AutoStore" width="150" height="100"> 
+        </a>
+        
+        <div id="menu">
+            <div class="item">
+                <a href="index.html">Trang Chủ</a>
+            </div>
+            <div class="item">
+                <a href="about-us.html">Giới thiệu</a>
+            </div>
+            <div class="item">
+                <a href="#footer">Liên hệ</a>
+            </div>
+        </div>
+
+        <div id="actions">
+            <div class="item" style="position: relative;" id="user-profile-container">
+                <div id="user-profile" style="display: none;">
+                    <img id="user-avatar" src="" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                </div>
+                <a href="login.html" id="login-btn" title="Đăng nhập">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+            
+            <div class="item" style="position: relative;">
+                <a href="sop.html" id="cart-btn" title="Giỏ hàng">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <span id="cart-badge">0</span>
+            </div>  
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Trang chủ</a>
+            <span>/</span>
+            <span class="current">Giới thiệu thành viên</span>
+        </div>
+    </div>
+
+    <!-- Nội dung chính: Thành viên -->
+    <div class="members-section">
+        <h2 class="section-title">🌟 GIỚI THIỆU THÀNH VIÊN</h2>
+        <div class="members-grid">
+
+            <!-- Thành viên 1: Cao Văn Điệp -->
+            <div class="member-card-compact" id="member-caodiep">
+                <div class="member-avatar">
+                    <img src="./ảnh/cvđ.jpg" alt="Cao Văn Điệp" onerror="this.src='./ảnh/default-avatar.jpg'">
+                </div>
+                <h3 class="member-name member-name-clickable">Cao Văn Điệp</h3>
+                <div class="member-tags">
+                    <span class="tag design">🎨 Thiết kế form login/logout</span>
+                </div>
+                <div class="member-contact">
+                    <a href="mailto:diep.cv@example.com"><i class="fas fa-envelope"></i> diep.cv@example.com</a>
+                    <a href="tel:+84123456789"><i class="fas fa-phone"></i> 0123 456 789</a>
+                </div>
+                <div class="member-work">
+                    <strong>Công việc chính</strong>
+                    <ul>
+                        <li>Thiết kế form login, logout tối giản, dễ nhìn</li>
+                        <li>Làm phần tiêu đề trang</li>
+                        <li>Tạo giỏ hàng với đầy đủ chức năng mua sắm</li>
+                    </ul>
+                </div>
+                <blockquote class="member-quote">
+                    “Một thiết kế tốt không chỉ đẹp mắt mà còn phải mang lại trải nghiệm tuyệt vời.”
+                </blockquote>
+            </div>
+
+            <!-- Thành viên 2: Ngô Nguyễn Xuân Ý -->
+            <div class="member-card-compact" id="member-ngoxy">
+                <div class="member-avatar">
+                    <img src="./ảnh/nnxy.jpg" alt="Ngô Nguyễn Xuân Ý" onerror="this.src='./ảnh/default-avatar.jpg'">
+                </div>
+                <h3 class="member-name member-name-clickable">Ngô Nguyễn Xuân Ý</h3>
+                <div class="member-tags">
+                    <span class="tag leader">👑 Nhóm trưởng</span>
+                    <span class="tag backend">⚙️ Backend</span>
+                    <span class="tag database">📦 Thẻ xe</span>
+                </div>
+                <div class="member-contact">
+                    <a href="mailto:ngonguyenxuany@gmail.com"><i class="fas fa-envelope"></i> ngonguyenxuany@gmail.com</a>
+                    <a href="tel:+84987654321"><i class="fas fa-phone"></i> 0938 88 11 34</a>
+                </div>
+                <div class="member-work">
+                    <strong>Công việc chính</strong>
+                    <ul>
+                        <li>Tạo và quản lý thẻ xe</li>
+                        <li>Phát triển chức năng tìm kiếm, danh mục</li>
+                        <li>Đảm bảo trang web vận hành ổn định</li>
+                    </ul>
+                </div>
+                <blockquote class="member-quote">
+                    “Công nghệ tốt nhất là công nghệ phục vụ tốt nhất cho con người.”
+                </blockquote>
+            </div>
+
+            <!-- Thành viên 3: Nguyễn Ngọc Thiện -->
+            <div class="member-card-compact" id="member-ngocthien">
+                <div class="member-avatar">
+                    <img src="./ảnh/nnt2.jpg" alt="Nguyễn Ngọc Thiện" onerror="this.src='./ảnh/default-avatar.jpg'">
+                </div>
+                <h3 class="member-name member-name-clickable">Nguyễn Ngọc Thiện</h3>
+                <div class="member-tags">
+                    <span class="tag design">🎨 Phối màu</span>
+                    <span class="tag photo">🖼️ Xử lý ảnh</span>
+                    <span class="tag content">✍️ Sáng tạo nội dung</span>
+                </div>
+                <div class="member-contact">
+                    <a href="mailto:thien.nn@example.com"><i class="fas fa-envelope"></i> thien.nn@example.com</a>
+                    <a href="tel:+84123123123"><i class="fas fa-phone"></i> 0123 123 123</a>
+                </div>
+                <div class="member-work">
+                    <strong>Công việc chính</strong>
+                    <ul>
+                        <li>Thiết kế giao diện và hình ảnh xe</li>
+                        <li>Xử lý, chỉnh sửa ảnh sản phẩm</li>
+                        <li>Tạo nội dung cho các phần còn lại của trang</li>
+                    </ul>
+                </div>
+                <blockquote class="member-quote">
+                    “Mỗi bức ảnh, mỗi thiết kế đều kể một câu chuyện riêng.”
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="box">
+            <div class="logo">
+                <img src="./ảnh/LOGO.png" alt="Logo" width="150" height="100">
+            </div>
+            <p>"Xe chất lượng - Giá tốt - Dịch vụ tận tâm"</p>
+            <p>⏰ Mở cửa: 7:00 - 22:00 hàng ngày</p>
+        </div>
+        <div class="box">
+            <h3>Liên kết nhanh</h3>
+            <ul class="quick-menu">
+                <div class="item">
+                    <a href="index.html">Trang chủ</a>
+                </div>
+                <div class="item">
+                   <a href="index.html#products">Xe</a>
+                </div>
+                <div class="item">
+                    <a href="about-us.html">Giới thiệu</a>
+                </div>
+                <div class="item">
+                    <a href="#footer">Liên hệ</a>
+                </div>
+                <div class="item">
+                    <a href="login.html">Đăng nhập</a>
+                </div>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Chính sách</h3>
+            <ul class="quick-menu">
+                <div class="item">
+                    <a href="#">Chính sách giao hàng</a>
+                </div>
+                <div class="item">
+                    <a href="#">Bảo mật thông tin</a>
+                </div>
+                <div class="item">
+                    <a href="#">Đổi trả & hoàn tiền</a>
+                </div>
+                <div class="item">
+                    <a href="#">Điều khoản sử dụng</a>
+                </div>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Đăng ký nhận tin</h3>
+            <p>Nhận ưu đãi 10% cho đơn hàng đầu tiên</p>
+            <form id="newsletter-form">
+                <input type="email" placeholder="Email của bạn" required>
+                <button type="submit">Đăng ký</button>
+            </form>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Scripts -->
+<script src="cart.js"></script>
+<script src="animations.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cập nhật số lượng giỏ hàng
+        function updateCartCount() {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+                const cartBadge = document.getElementById('cart-badge');
+                if (cartBadge) {
+                    cartBadge.textContent = totalItems > 99 ? '99+' : totalItems;
+                    cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+                }
+            } catch (error) {
+                console.error('Lỗi khi cập nhật giỏ hàng:', error);
+            }
+        }
+
+        // Kiểm tra đăng nhập
+        function checkLogin() {
+            const currentUser = localStorage.getItem('currentUser');
+            const userProfile = document.getElementById('user-profile');
+            const loginBtn = document.getElementById('login-btn');
+            if (currentUser && userProfile) {
+                try {
+                    const user = JSON.parse(currentUser);
+                    const userAvatar = document.getElementById('user-avatar');
+                    if (userAvatar && user.avatar) {
+                        userAvatar.src = user.avatar;
+                    }
+                    userProfile.style.display = 'block';
+                    loginBtn.style.display = 'none';
+                } catch (error) {
+                    console.error('Lỗi khi xử lý thông tin đăng nhập:', error);
+                }
+            }
+        }
+
+        // Xử lý click vào tên thành viên (highlight + scroll)
+        document.querySelectorAll('.member-name-clickable').forEach(nameEl => {
+            nameEl.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.member-card-compact');
+                if (card) {
+                    card.classList.add('highlight-animation');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => card.classList.remove('highlight-animation'), 2000);
+                }
+            });
+        });
+
+        // Xử lý tham số URL ?member=...
+        const urlParams = new URLSearchParams(window.location.search);
+        const memberParam = urlParams.get('member');
+        if (memberParam) {
+            setTimeout(() => {
+                const el = document.getElementById(`member-${memberParam}`);
+                if (el) {
+                    el.classList.add('highlight-animation');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => el.classList.remove('highlight-animation'), 2000);
+                }
+            }, 300);
+        }
+
+        // Xử lý từ localStorage (khi chuyển từ index.html)
+        const selectedMember = localStorage.getItem('selectedMember');
+        if (selectedMember && !memberParam) {
+            setTimeout(() => {
+                const el = document.getElementById(`member-${selectedMember}`);
+                if (el) {
+                    el.classList.add('highlight-animation');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    localStorage.removeItem('selectedMember');
+                    setTimeout(() => el.classList.remove('highlight-animation'), 2000);
+                }
+            }, 300);
+        }
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                if (email) {
+                    alert(`Cảm ơn bạn đã đăng ký nhận tin với email: ${email}\nMã giảm giá 10% đã được gửi đến email của bạn!`);
+                    this.reset();
+                }
+            });
+        }
+
+        // Scroll to top button
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        if (scrollBtn) {
+            window.addEventListener('scroll', function() {
+                scrollBtn.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
+            });
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            scrollBtn.style.display = 'none';
+        }
+
+        // Smooth scroll cho anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Khởi tạo
+        updateCartCount();
+        checkLogin();
+    });
+
+    // Hàm xem chi tiết thành viên (gọi từ index.html)
+    function viewMemberDetail(memberId) {
+        localStorage.setItem('selectedMember', memberId);
+        window.location.href = 'about-us.html?member=' + memberId;
+    }
+</script>
+</body>
+</html>
