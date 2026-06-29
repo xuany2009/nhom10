@@ -910,7 +910,7 @@ function displayProductList(products, containerId, cardClass) {
         container.innerHTML = '';
         
         // CHỈ HIỂN THỊ 9 SẢN PHẨM ĐẦU TIÊN
-        const limitedProducts = products.slice(0, 9);
+        const limitedProducts = products.slice(0, 12);
         
         limitedProducts.forEach(product => {
             createProductCard(product, containerId, cardClass);
