@@ -1739,6 +1739,24 @@ body .container span {
     .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ============================================================
    ANIMATIONS — Thêm mới (không xóa code cũ)
    ============================================================ */
@@ -1951,42 +1969,6 @@ body .container span {
   background: linear-gradient(90deg, var(--iron) 25%, var(--steel) 50%, var(--iron) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-}
-
-/* ── HIỆU ỨNG ĐỘNG MỚI (thêm vào cuối) ── */
-
-/* Banner: di chuyển background */
-@keyframes slideBackground {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-#banner {
-    background-size: 110%;   /* phóng to ảnh để có khoảng dịch chuyển */
-    animation: slideBackground 25s ease-in-out infinite;
-}
-
-/* Ảnh sản phẩm: nhấp nhô */
-@keyframes floatImage {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
-}
-
-.float-image {
-    animation: floatImage 3.5s ease-in-out infinite;
-}
-
-/* Avatar thành viên: lắc lư nhẹ */
-@keyframes slowFloat {
-    0%   { transform: translateY(0px) rotate(0deg); }
-    50%  { transform: translateY(-8px) rotate(1.5deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
-
-.slow-float {
-    animation: slowFloat 4.2s ease-in-out infinite;
 }
 
 /* ── RESPONSIVE ── */
