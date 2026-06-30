@@ -763,7 +763,6 @@ function createProductCard(product, containerId, cardClass) {
             <div class="product-image">
                 <img src="${product.anh || './ảnh/default-cake.jpg'}" 
                      alt="${product.tendv}" 
-                     class="float-image"
                      onerror="this.onerror=null; this.src='./ảnh/default-cake.jpg';">
             </div>
             <div class="product-info">
@@ -1137,7 +1136,6 @@ function renderProducts() {
             <div class="product-image">
                 <img src="${product.anh || './ảnh/default-cake.jpg'}" 
                      alt="${product.tendv}" 
-                     class="float-image"
                      onerror="this.onerror=null; this.src='./ảnh/default-cake.jpg';">
                 ${product.originalPrice ? '<div class="sale-tag">Sale</div>' : ''}
                 ${currentCategory === 'new' ? '<div class="new-tag">Mới</div>' : ''}
@@ -1627,7 +1625,6 @@ function renderProducts() {
             <div class="product-image">
                 <img src="${product.anh || './ảnh/default-cake.jpg'}" 
                      alt="${product.tendv}" 
-                     class="float-image"
                      onerror="this.onerror=null; this.src='./ảnh/default-cake.jpg';">
                 ${product.originalPrice ? '<div class="sale-tag">Sale</div>' : ''}
                 ${currentCategory === 'new' ? '<div class="new-tag">Mới</div>' : ''}
@@ -1695,7 +1692,7 @@ function renderProducts() {
         grid.appendChild(card);
     });
     
-    // Nếu không có sản phẩm và không phải tìm kiếm
+    // Nếu không có sản phẩm
     if (productsToShow.length === 0 && !isSearching) {
         grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
