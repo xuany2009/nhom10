@@ -200,18 +200,6 @@ const suv1 = [
         tags: ["Toyota", "Fortuner", "off-road"]
     },
     {
-        id: "suv2",
-        tendv: "Hyundai Santa Fe",
-        anh: "./ảnh/suv/suv2.Webp",
-        tt1: "2.2L Diesel, 202 mã lực, hộp số 8 cấp.",
-        gia: "950000000",
-        category: "SUV",
-        size: "SUV 7 chỗ",
-        serves: "7 người",
-        type: "suv",
-        tags: ["Hyundai", "Santa Fe", "gia đình"]
-    },
-    {
         id: "suv3",
         tendv: "Ford Everest",
         anh: "./ảnh/suv/suv3.jpg",
