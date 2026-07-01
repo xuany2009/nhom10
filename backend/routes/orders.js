@@ -17,7 +17,14 @@ router.get('/', async (req, res) => {
 // Tạo đơn hàng mới
 router.post('/', async (req, res) => {
   try {
-    const { customerName, customerEmail, items, total } = req.body;
+    const { 
+      customerName, 
+      customerEmail, 
+      customerPhone, 
+      customerAddress, 
+      items, 
+      total 
+    } = req.body;
 
     if (!customerName || !customerEmail || !items || items.length === 0) {
       return res.status(400).json({ message: 'Thiếu thông tin đơn hàng' });
@@ -30,12 +37,17 @@ router.post('/', async (req, res) => {
       orderId,
       customerName,
       customerEmail,
+      customerPhone: customerPhone || '',
+      customerAddress: customerAddress || '',
       items,
       total
     });
 
     await newOrder.save();
-    res.status(201).json({ message: 'Đặt hàng thành công', order: newOrder });
+    res.status(201).json({ 
+      message: 'Đặt hàng thành công', 
+      order: newOrder 
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
