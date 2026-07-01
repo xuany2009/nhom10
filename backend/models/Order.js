@@ -4,6 +4,8 @@ const orderSchema = new mongoose.Schema({
   orderId: { type: String, required: true, unique: true },
   customerName: { type: String, required: true },
   customerEmail: { type: String, required: true },
+  customerPhone: { type: String, default: '' },
+  customerAddress: { type: String, default: '' },
   items: [{
     productId: String,
     name: String,
