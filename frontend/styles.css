@@ -384,87 +384,84 @@ body {
 }
 
 /* ============================================================
-   CATEGORY NAV SECTION
+   CATEGORY NAV SECTION — HORIZONTAL LAYOUT (sửa ở đây)
 ============================================================ */
 .category-nav-section {
     background: var(--steel);
-    padding: 40px;
-    margin: 0 0 0 0;
-    border-radius: 0;
-    max-width: 100%;
-    width: 100%;
+    padding: 20px 40px;
+    margin: 0;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    width: 100%;
 }
 
 .category-products-container {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
-/* ── SIDEBAR ── */
 .category-sidebar-container {
     background: var(--obsidian);
     border-radius: 12px;
-    padding: 24px;
+    padding: 16px 24px;
     border: 1px solid var(--border);
-    height: fit-content;
-    position: sticky;
-    top: 88px;
+    width: 100%;
 }
 
 .category-sidebar-container h2 {
-    font-family: var(--font-display) !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    color: var(--silver) !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    margin-bottom: 16px !important;
-    padding: 0 !important;
-    margin-top: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--silver);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.category-sidebar-container h2::after { display: none !important; }
-
+/* Danh sách danh mục NẰM NGANG */
 .category-list {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 24px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-bottom: 0;
+    padding: 0;
 }
 
 .category-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 11px 14px;
+    gap: 6px;
+    padding: 8px 16px;
     background: transparent;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--chrome);
+    border-radius: 30px;
     border: 1px solid transparent;
-    transition: all 0.2s;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
+    color: var(--chrome);
+    transition: all 0.25s ease;
+    text-decoration: none;
 }
 
 .category-item i {
-    width: 18px;
     color: var(--silver);
     font-size: 14px;
 }
 
 .category-item .count {
-    margin-left: auto;
     font-size: 11px;
     color: var(--silver);
+    background: var(--iron);
+    padding: 0 8px;
+    border-radius: 12px;
+    line-height: 20px;
 }
 
 .category-item:hover,
@@ -475,79 +472,83 @@ body {
 }
 
 .category-item:hover i,
-.category-item.active i { color: var(--ember); }
-
-.category-item.sale,
-.category-item.new {
-    color: var(--chrome);
+.category-item.active i {
+    color: var(--ember);
 }
 
 .category-item.sale .count,
 .category-item.new .count {
     background: var(--ember);
     color: white;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 10px;
     font-weight: 700;
 }
 
 .category-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
     background: linear-gradient(135deg, var(--ember-dark), var(--ember));
     border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    margin-top: 12px;
+    padding: 14px 24px;
+    margin-top: 16px;
 }
 
 .category-banner h3 {
     color: white;
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .category-banner p {
-    color: rgba(255,255,255,0.85);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 13px;
-    margin-bottom: 6px;
+    margin: 0;
 }
 
 .promo-btn {
-    margin-top: 12px;
     background: white;
     color: var(--ember-dark);
     border: none;
-    padding: 9px 18px;
-    border-radius: 6px;
+    padding: 8px 18px;
+    border-radius: 30px;
     font-weight: 700;
     font-size: 13px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
 }
 
-.promo-btn:hover { transform: scale(1.04); }
+.promo-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
 
-/* ── PRODUCTS MAIN ── */
-.products-main-content { flex: 1; }
+/* ============================================================
+   PRODUCTS MAIN
+============================================================ */
+.products-main-content {
+    flex: 1;
+}
 
 .products-header {
     margin-bottom: 24px;
 }
 
 .products-header h2 {
-    font-family: var(--font-display) !important;
-    font-size: 22px !important;
-    font-weight: 700 !important;
-    color: var(--platinum) !important;
-    letter-spacing: 0.06em !important;
-    margin-bottom: 4px !important;
-    padding: 0 !important;
-    margin-top: 0 !important;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--platinum);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
 }
-
-.products-header h2::after { display: none !important; }
 
 .category-description {
     color: var(--silver);
@@ -559,6 +560,7 @@ body {
 .search-container {
     display: flex;
     gap: 10px;
+    margin-bottom: 16px;
 }
 
 .search-box {
@@ -1660,8 +1662,6 @@ body .container span {
 ============================================================ */
 @media (max-width: 1200px) {
     #banner { padding: 0 40px; }
-    .category-products-container { grid-template-columns: 1fr; }
-    .category-sidebar-container { position: static; }
     .intro-container { grid-template-columns: 1fr; }
 }
 
@@ -1703,7 +1703,39 @@ body .container span {
     #banner .box-left h2 { font-size: 38px; }
     #banner .box-left p { transform: none !important; max-width: 100%; }
 
-    .category-nav-section { padding: 24px 16px; }
+    .category-nav-section {
+        padding: 16px;
+    }
+
+    .category-sidebar-container {
+        padding: 12px 16px;
+    }
+
+    .category-list {
+        gap: 4px 6px;
+    }
+
+    .category-item {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .category-item .count {
+        font-size: 10px;
+        line-height: 18px;
+        padding: 0 6px;
+    }
+
+    .category-banner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 16px;
+    }
+
+    .category-banner .promo-btn {
+        align-self: center;
+    }
 
     .product-detail-card {
         grid-template-columns: 1fr;
@@ -1734,13 +1766,30 @@ body .container span {
 }
 
 @media (max-width: 480px) {
+    .category-item {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    .category-item i {
+        font-size: 12px;
+    }
+
+    .category-banner h3 {
+        font-size: 14px;
+    }
+
+    .category-banner p {
+        font-size: 12px;
+    }
+
     #banner .box-left h2 { font-size: 30px; }
     .size-buttons { grid-template-columns: repeat(2, 1fr); }
     .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 
 /* ============================================================
-   ANIMATIONS — Thêm mới (không xóa code cũ)
+   ANIMATIONS — Thêm mới
    ============================================================ */
 
 /* ── KEYFRAMES ── */
@@ -1789,6 +1838,24 @@ body .container span {
 @keyframes rotateIcon {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes slideBackground {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes floatImage {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes slowFloat {
+    0%   { transform: translateY(0px) rotate(0deg); }
+    50%  { transform: translateY(-8px) rotate(1.5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 /* ── ANIMATION CLASSES ── */
@@ -1953,38 +2020,18 @@ body .container span {
   animation: shimmer 1.5s infinite;
 }
 
-/* ── HIỆU ỨNG ĐỘNG MỚI (thêm vào cuối) ── */
-
 /* Banner: di chuyển background */
-@keyframes slideBackground {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
 #banner {
-    background-size: 110%;   /* phóng to ảnh để có khoảng dịch chuyển */
+    background-size: 110%;
     animation: slideBackground 25s ease-in-out infinite;
 }
 
 /* Ảnh sản phẩm: nhấp nhô */
-@keyframes floatImage {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
-}
-
 .float-image {
     animation: floatImage 3.5s ease-in-out infinite;
 }
 
 /* Avatar thành viên: lắc lư nhẹ */
-@keyframes slowFloat {
-    0%   { transform: translateY(0px) rotate(0deg); }
-    50%  { transform: translateY(-8px) rotate(1.5deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
-
 .slow-float {
     animation: slowFloat 4.2s ease-in-out infinite;
 }
