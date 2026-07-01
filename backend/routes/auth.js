@@ -26,14 +26,14 @@ router.post('/register', async (req, res) => {
     await newUser.save();
 
     res.status(201).json({
-      message: 'Đăng ký thành công',
+      message: 'Đăng ký thành công! Bạn có thể đăng nhập ngay.',
       user: {
         username: newUser.username,
         avatar: newUser.avatar
       }
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Lỗi server: ' + err.message });
   }
 });
 
@@ -54,14 +54,14 @@ router.post('/login', async (req, res) => {
     }
 
     res.json({
-      message: 'Đăng nhập thành công',
+      message: 'Đăng nhập thành công!',
       user: {
         username: user.username,
         avatar: user.avatar
       }
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Lỗi server: ' + err.message });
   }
 });
 
