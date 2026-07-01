@@ -899,7 +899,7 @@ function displayProductList(products, containerId, cardClass) {
         container.innerHTML = '';
         
         // CHỈ HIỂN THỊ 9 SẢN PHẨM ĐẦU TIÊN
-        const limitedProducts = products.slice(0, 9);
+        const limitedProducts = products.slice(0, 10);
         
         limitedProducts.forEach(product => {
             createProductCard(product, containerId, cardClass);
@@ -987,7 +987,7 @@ document.addEventListener('DOMContentLoaded', function() {
         displayProductList(family1.slice(0, 10), "danhsach4", "ten-card4");
         displayProductList(electric1.slice(0, 10), "danhsach5", "ten-card5");
         
-        console.log('Đã hiển thị tất cả sản phẩm xe hơi (9 sản phẩm mỗi danh mục)');
+        console.log('Đã hiển thị tất cả sản phẩm xe hơi (10 sản phẩm mỗi danh mục)');
     } catch (error) {
         console.error('Lỗi khi hiển thị sản phẩm:', error);
     }
@@ -1002,7 +1002,7 @@ window.showNotification = showNotification;
 // ============================================
 
 // Cấu hình phân trang - CHỈ HIỂN THỊ 9 SẢN PHẨM MỖI TRANG
-const PRODUCTS_PER_PAGE = 9;
+const PRODUCTS_PER_PAGE = 10;
 
 // Hợp nhất tất cả sản phẩm
 const ALL_PRODUCTS = [
@@ -1374,11 +1374,11 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         // Nếu không có phần hiển thị mới, dùng hệ thống cũ
         console.log('Sử dụng hệ thống hiển thị sản phẩm cũ...');
-        displayProductList(dsbanh1.slice(0, 9), "danhsach1", "ten-card1");
-        displayProductList(dsbanh2.slice(0, 9), "danhsach2", "ten-card2");
-        displayProductList(dsbanh3.slice(0, 9), "danhsach3", "ten-card3");
-        displayProductList(dsbanh4.slice(0, 9), "danhsach4", "ten-card4");
-        displayProductList(dsbanh5.slice(0, 9), "danhsach5", "ten-card5");
+        displayProductList(dsbanh1.slice(0, 10), "danhsach1", "ten-card1");
+        displayProductList(dsbanh2.slice(0, 10), "danhsach2", "ten-card2");
+        displayProductList(dsbanh3.slice(0, 10), "danhsach3", "ten-card3");
+        displayProductList(dsbanh4.slice(0, 10), "danhsach4", "ten-card4");
+        displayProductList(dsbanh5.slice(0, 10), "danhsach5", "ten-card5");
     }
 });
 
