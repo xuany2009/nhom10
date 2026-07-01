@@ -981,11 +981,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     try {
         // CHỈ HIỂN THỊ 9 SẢN PHẨM MỖI DANH MỤC
-        displayProductList(sedan1.slice(0, 9), "danhsach1", "ten-card1");
-        displayProductList(suv1.slice(0, 9), "danhsach2", "ten-card2");
-        displayProductList(sport1.slice(0, 9), "danhsach3", "ten-card3");
-        displayProductList(family1.slice(0, 9), "danhsach4", "ten-card4");
-        displayProductList(electric1.slice(0, 9), "danhsach5", "ten-card5");
+        displayProductList(sedan1.slice(0, 10), "danhsach1", "ten-card1");
+        displayProductList(suv1.slice(0, 10), "danhsach2", "ten-card2");
+        displayProductList(sport1.slice(0, 10), "danhsach3", "ten-card3");
+        displayProductList(family1.slice(0, 10), "danhsach4", "ten-card4");
+        displayProductList(electric1.slice(0, 10), "danhsach5", "ten-card5");
         
         console.log('Đã hiển thị tất cả sản phẩm xe hơi (9 sản phẩm mỗi danh mục)');
     } catch (error) {
